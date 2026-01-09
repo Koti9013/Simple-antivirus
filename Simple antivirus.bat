@@ -1,5 +1,5 @@
 @echo off
-set "version=0.2"
+set "version=0.3"
 title Simple Antivirus v%version%
 chcp 65001 >nul
 echo [System] Checking updates...
