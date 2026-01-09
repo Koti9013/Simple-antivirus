@@ -41,11 +41,7 @@ echo [!] Запуск сканирования "самозванцев"...
 echo [!] ВНИМАНИЕ: Требуются права администратора.
 echo.
 
-:: Основная логика сканера (игнорирует OneDrive, Steam, Discord)
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$tasks = Get-ScheduledTask | Where-Object {$_.State -ne 'Disabled'}; $found = $false; foreach ($task in $tasks) { $action = $task.Actions.Execute; if (!$action) { $action = $task.Actions.Arguments }; if ($action -match 'AppData|Temp' -and $action -notmatch 'OneDrive|Discord|Steam') { $found = $true; Write-Host '[!] НАЙДЕН ПОДОЗРИТЕЛЬНЫЙ ОБЪЕКТ!' -ForegroundColor Red; Write-Host 'Задача: ' $task.TaskName -ForegroundColor Yellow; Write-Host 'Путь:   ' $action -ForegroundColor White; $choice = Read-Host 'Отключить эту задачу? (y/n)'; if ($choice -eq 'y') { Disable-ScheduledTask -TaskName $task.TaskName; Write-Host 'Успешно отключено!' -ForegroundColor Cyan } Write-Host '-----------------------------------' } }; if (-not $found) { Write-Host 'Самозванцев не обнаружено. Ваша система в безопасности.' -ForegroundColor Green }; Write-Host ''; Write-Host 'Сканирование завершено. Нажмите Enter для выхода...'; Read-Host"
-
 exit
-=======
 :run_scanner
 :: Встановлюємо кодування UTF-8 для підтримки кирилиці
 chcp 65001 >nul
