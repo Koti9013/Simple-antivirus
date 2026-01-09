@@ -17,7 +17,7 @@ set "remote_ver=%remote_ver: =%"
 
 if "%remote_ver%"=="%version%" (
     echo [OK] У вас актуальная версия.
-    timeout /t 1 >nul
+    timeout /t 2 >nul
     goto scan
 )
 
@@ -33,17 +33,14 @@ cls
 echo ==========================================
 echo       Simple Antivirus v%version%
 echo ==========================================
-echo [!] Запуск сканирования "самозванцев"...
-echo [!] ВНИМАНИЕ: Требуются права администратора.
+echo [!] WARNING: need administrator rights to work normally.
 echo.
 
-exit
-:run_scanner
 chcp 65001 >nul
 echo ==========================================
-echo       ЗАПУСК СКАНЕРА BATHUB...
+echo        STARTING SIMPLE ANTIVIRUS...
 echo ==========================================
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$tasks = Get-ScheduledTask | Where-Object {$_.State -ne 'Disabled'}; $found = $false; foreach ($task in $tasks) { $action = $task.Actions.Execute; if (!$action) { $action = $task.Actions.Arguments }; if ($action -match 'AppData|Temp' -and $action -notmatch 'OneDrive') { $found = $true; Write-Host '[!] ЗНАЙДЕНО ПІДОЗРІЛИЙ ОБЄКТ!' -ForegroundColor Red; Write-Host 'Задача: ' $task.TaskName -ForegroundColor Yellow; Write-Host 'Шлях:   ' $action -ForegroundColor White; $choice = Read-Host 'Вимкнути цю задачу? (y/n)'; if ($choice -eq 'y') { Disable-ScheduledTask -TaskName $task.TaskName; Write-Host 'Вимкнено успішно!' -ForegroundColor Cyan } Write-Host '-----------------------------------' } }; if (-not $found) { Write-Host 'Самозванців не виявлено (системні процеси проігноровано).' -ForegroundColor Green }; Write-Host 'Скан завершено. Натисніть Enter...'; Read-Host"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; $tasks = Get-ScheduledTask | Where-Object {$_.State -ne 'Disabled'}; $found = $false; foreach ($task in $tasks) { $action = $task.Actions.Execute; if (!$action) { $action = $task.Actions.Arguments }; if ($action -match 'AppData|Temp' -and $action -notmatch 'OneDrive|Discord|Steam') { $found = $true; Write-Host '[!] INTRUDER FOUND!' -ForegroundColor Red; Write-Host 'Task: ' $task.TaskName -ForegroundColor Yellow; Write-Host 'Path: ' $action -ForegroundColor White; $choice = Read-Host 'Disable this task? (y/n)'; if ($choice -eq 'y') { Disable-ScheduledTask -TaskName $task.TaskName; Write-Host 'Successfully disabled!' -ForegroundColor Cyan } Write-Host '-----------------------------------' } }; if (-not $found) { Write-Host 'No intruders found. System processes were ignored.' -ForegroundColor Green }; Write-Host ''; Write-Host 'Scan complete. Press Enter to exit...'; Read-Host"
 pause
 goto menu
 
