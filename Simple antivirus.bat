@@ -1,5 +1,4 @@
 @echo off
-:: Устанавливаем версию (строго без пробелов)
 set "version=0.1"
 title Simple Antivirus v%version%
 chcp 65001 >nul
@@ -13,18 +12,15 @@ if %errorlevel% neq 0 (
     goto scan
 )
 
-:: Читаем версию из файла и убираем пробелы
 set /p remote_ver=<%temp%\ver.txt
 set "remote_ver=%remote_ver: =%"
 
-:: Если версии совпадают - сразу идем к сканированию
 if "%remote_ver%"=="%version%" (
     echo [OK] У вас актуальная версия.
     timeout /t 1 >nul
     goto scan
 )
 
-:: Если версии разные - скачиваем обновление
 echo [!] Найдена новая версия: %remote_ver%
 echo [!] Загрузка обновления...
 curl -f -s -L "https://raw.githubusercontent.com/Koti9013/Simple-antivirus/refs/heads/main/Simple%20antivirus.bat" -o "%~f0"
@@ -43,7 +39,6 @@ echo.
 
 exit
 :run_scanner
-:: Встановлюємо кодування UTF-8 для підтримки кирилиці
 chcp 65001 >nul
 echo ==========================================
 echo       ЗАПУСК СКАНЕРА BATHUB...
