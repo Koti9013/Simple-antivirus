@@ -7,5 +7,5 @@ This simple project can scan your task manager &amp; startup files, can find int
  3. When the antivirus find some suspicious files it will automatically report you about it. Then it's up to you.
  4. The script will check autostarting tasks and read all about their path. If the task's home is a folder for short-timed files, then it will tell you about it. Don't worry, the system's files are ignored. It will also ignore such files as "OneDrive" etc., so it will not harm your PC
  5. You can tell it to delete it or skip the file and continue scanning. It's easy to use, I tried to do everything to optimizate it for you :)
-# [Found some issues?](https://github.com/Simple-antivirus/Issues)
+# [Found some issues?](https://github.com/Koti9013/Simple-antivirus/issues)
 You can tell me about it, just click the text up above and explain the issue, even offer me some new features!
